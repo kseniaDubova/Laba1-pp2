@@ -11,25 +11,19 @@ HEADERS = {
 req = requests.get(URL, headers=HEADERS)
 src = req.text
 
-#with open("weather_file.html", "w") as file:
-#    file.write(src)
-
-#with open("weather_file.html") as file:
- #   src = file.read()
-soup = bs(req.content, 'html.parser')
-#all_day = soup.find_all("td")
-#dd =soup.find_all(class_="first_in_group")
-import re
-for item in soup.find_all ("tr"):
-   for item1 in soup.find_all("td"):
-       tmp=item1.text
-       print(tmp)
- #  number_of_day = item.text
-   #number_of_day.next()
-  # nof=number_of_day.text
- #  print(number_of_day)
+one_day = []
+soup = bs(req.content, 'lxml')
+items = soup.find_all("tr")
+for item in items:
+    number = item.find('td', class_="first"),
+    temp = item.find('td', class_="first_in_group"),
+    p = item.find('td', class_=""),
+    wind = item.find('span', class_="")
+    #print(f"{number}, {temp}, {p}, {wind}")
+    print(number,temp,p,wind)
 
 
 
 
-    
+
+
