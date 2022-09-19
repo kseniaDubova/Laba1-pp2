@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup as bs
 
-URL = 'https://www.gismeteo.ru/diary/4368/2022/1/'
+URL = 'https://www.gismeteo.ru/diary/4618/2022/1/'
 HEADERS = {
     "Accept": "*/*",
     "User-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36"
@@ -16,7 +16,7 @@ def get_html(url):
 
 def clean_content(parametrs):
     for number in parametrs:
-        if number == '':
+        if number == '' or number == "—":
             parametrs.remove(number)
     return parametrs
 
