@@ -11,7 +11,14 @@ HEADERS = {
 def get_html(url, param=""):
     req = requests.get(url, headers=HEADERS, params="param")
     return req
-
+def clean_content(parametrs):
+    index=0
+    for i in parametrs:
+        if parametrs[index] == '':
+            parametrs.pop(index)
+            index-=1
+        index = index+1
+    #return parametrs
 def get_content(html):
 #out_file = open("weather.txt", "w+")
     soup = bs(html, 'html.parser')
@@ -26,7 +33,10 @@ def get_content(html):
                 #"p": item.find('td', class_=""),
                 #"wind": item.find('span', class_="")
     #print(all_number)
+    clean_content(all_number)
+    #clean_content(all_number)
     return  all_number
+
    # for item in items:
  #       all_weather.append(
             #{
