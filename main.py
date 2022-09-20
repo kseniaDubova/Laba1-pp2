@@ -6,8 +6,6 @@ HEADERS = {
     "User-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36"
 
 }
-
-
 def get_html(url):
     req = requests.get(url, headers=HEADERS)
     return req
@@ -36,25 +34,14 @@ def get_content(html):
     all_number = clean_content(all_number)
     return all_number
 
-def range(year, month):
-    number = 0
-    if month == 4 or month == 6 or month == 9 or month == 11:
-        number = 30
-    else:
-        if month == 2:
-            if year % 4 == 0:
-                number = 29
-            else:
-                number = 28
-        else:
-            number = 31
-    return number
+
 
 #html = get_html(URL)
 
 out_file = open("dataset.csv", 'w+')
 first_year = 2008
-first_month = 2
+first_month = 1
+
 while first_year<=2022:
     while first_month<=12:
         if first_month == 10 and first_year == 2022:
@@ -64,10 +51,8 @@ while first_year<=2022:
         html = get_html(full_url)
         main_list = get_content(html.text)
         index = 0
-        number_for_date = range(first_year, first_month)
         out_file.write('Дата: '+str(first_year)+'.'+str(first_month) +'\n')
-
-        while index<number_for_date*7:
+        while index<len(main_list):
             out_file.write("День №"+ main_list[index]+", "+ main_list[index+1]+", "+ main_list[index+2]+", "+ main_list[index+3]+", "+ "Вечер"+": "+ main_list[index+4]+", "+main_list[index+5]+", "+main_list[index+6]+'\n')
             index+=7
         first_month+=1
