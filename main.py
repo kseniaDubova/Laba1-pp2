@@ -34,10 +34,6 @@ def get_content(html):
     all_number = clean_content(all_number)
     return all_number
 
-
-
-#html = get_html(URL)
-
 out_file = open("dataset.csv", 'w+')
 first_year = 2008
 first_month = 1
