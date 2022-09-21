@@ -11,10 +11,10 @@ def get_html(url):
     return req
 
 
-def clean_content(parametrs):
+def clean_content(parameters):
     new_weather = []
     count = 0
-    for number in parametrs:
+    for number in parameters:
         if not count == 3 and not count == 4 and not count == 8 and not count == 9:
             new_weather.append(number)
         count += 1
