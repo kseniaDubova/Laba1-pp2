@@ -47,9 +47,9 @@ while first_year<=2022:
         html = get_html(full_url)
         main_list = get_content(html.text)
         index = 0
-        out_file.write('Дата: '+str(first_year)+'.'+str(first_month) +'\n')
         while index<len(main_list):
-            out_file.write("День №"+ main_list[index]+", "+ main_list[index+1]+", "+ main_list[index+2]+", "+ main_list[index+3]+", "+ "Вечер"+": "+ main_list[index+4]+", "+main_list[index+5]+", "+main_list[index+6]+'\n')
+            out_file.write(main_list[index]+'.'+str(first_month)+'.'+str(first_year) +': ')
+            out_file.write(main_list[index+1]+", "+ main_list[index+2]+", "+ main_list[index+3]+", "+ main_list[index+4]+", "+main_list[index+5]+", "+main_list[index+6]+'\n')
             index+=7
         first_month+=1
     first_year+=1
