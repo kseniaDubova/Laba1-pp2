@@ -1,10 +1,11 @@
-import csv
+
 import re
+import os
 def creade_file(start,end,data):
-    name_of_file="2/"+str(start)+"_"+str(end)+".csv"
+    name_of_file=os.path.join("2",str(start)+"_"+str(end)+".csv")
     out_file = open(name_of_file,'w+')
     for param in data:
-        out_file.write(param+"\n")
+        out_file.write(param)
     out_file.close
     
 def create(data):
