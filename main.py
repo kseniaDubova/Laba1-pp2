@@ -1,3 +1,4 @@
+import re
 import requests
 from bs4 import BeautifulSoup as bs
 
@@ -20,6 +21,7 @@ def clean_content(parameters):
         count += 1
         if count == 11:
             count = 0
+
     return new_weather
 
 
@@ -31,7 +33,7 @@ def get_content(html):
         if item.find('<td class="first">') != -1:
             all_number.append(item.get_text())
 
-    all_number = clean_content(all_number)
+    all_number = clean_content(all_number) 
     return all_number
 
 out_file = open("dataset.csv", 'w+')
@@ -48,7 +50,7 @@ while first_year<=2022:
         main_list = get_content(html.text)
         index = 0
         while index<len(main_list):
-            out_file.write(main_list[index]+'.'+str(first_month)+'.'+str(first_year) +': ')
+            out_file.write(main_list[index]+'-'+str(first_month)+'-'+str(first_year) +', ')
             out_file.write(main_list[index+1]+", "+ main_list[index+2]+", "+ main_list[index+3]+", "+ main_list[index+4]+", "+main_list[index+5]+", "+main_list[index+6]+'\n')
             index+=7
         first_month+=1
