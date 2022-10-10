@@ -1,5 +1,5 @@
 import csv
-
+import os
 
 
 
@@ -16,8 +16,8 @@ def separation(file):
 
 
 def print_in_files(main_list):
-    file_of_date = open ("1/file_with_date.csv", 'w')   
-    file_of_over = open ("1/file_with_data.csv", "w") 
+    file_of_date = open (os.path.join("1","file_with_date.csv"), 'w')   
+    file_of_over = open (os.path.join("1","file_with_data.csv"), "w") 
     count = 0
     for number in main_list:
         if count==0:
