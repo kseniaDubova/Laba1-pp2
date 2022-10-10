@@ -10,8 +10,10 @@ def creade_file(start,end,data):
     
 def create(data):
     start = re.search(r"\d.*\d{4}", data[0])
+    start = start[0].replace("-", "")
     end = re.search(r"\d.*\d{4}", data[len(data)-1])
-    creade_file(start[0],end[0],data)
+    end = end[0].replace("-", "")
+    creade_file(start,end,data)
 
 def separation(data, year):
     new_data=[]
