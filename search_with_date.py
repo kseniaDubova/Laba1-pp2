@@ -79,17 +79,3 @@ def next(count):
     file.close
     count+=1
     return count
-
-
-date = datetime.date(2017, 10, 28)
-searh_in_all(date)
-search_in_year(date)
-search_in_week(date)
-searh_in_data_and_date(date)
-
-count = 0
-count = next(count)
-count = next(count)
-count = next(count)
-count = next(count)
-count = next(count)
