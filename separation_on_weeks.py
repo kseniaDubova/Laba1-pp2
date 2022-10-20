@@ -1,68 +1,76 @@
 import re
 import os
+import datetime
+from datetime import timedelta
+
+
+def day(this_day):
+    year = re.search(r"\d{4}", this_day)
+    day = re.search(r"\b\d{2}",this_day)
+    month = re.search(r"\-\d{2}\-",this_day)
+    month = month[0].replace('-','')
+    return datetime.date(int(year[0]), int(month), int(day[0]))
+
+def chouse_day(data):
+    new_date = re.search(r"\d{2}\-\d{2}\-\d{4}", data[0])
+    new_date=day(new_date[0])
+    return new_date+timedelta(7)
 
 def creade_file(start,end,data):
-    name_of_file=os.path.join("3",str(start)+"_"+str(end)+".csv")
+    end = end.replace("-", "")
+    end = end.replace("\\", "")
+    start = start.replace("\\", "")
+    start = start.replace("-", "")
+    name_of_file=os.path.join("3",start+"_"+end+".csv")
     out_file = open(name_of_file,'w+')
     for param in data:
         out_file.write(param)
     out_file.close
     
 def create(data):
-    start = re.search(r"\d.*\d{4}", data[0])
-    start = start[0].replace("-", "")
-    end = re.search(r"\d.*\d{4}", data[len(data)-1])
-    end = end[0].replace("-", "")
-    creade_file(start,end,data)
+    start = re.search(r"\d{2}\-\d{2}\-\d{4}", data[0])
+    end = chouse_day(start)
+    start = day(start[0])
+    creade_file(str(start),str(end),data)
 
-def separation(data, day):
+def separation(data, last_day):
     new_data=[]
     for row in data:
-        a = re.search(r"\d{1,2}", row)
-        if a[0]!=str(day):
+        new_date = re.search(r"\d{2}\-\d{2}\-\d{4}", row)
+        new_date=day(new_date[0])
+        if new_date<last_day:
             new_data.append(row)
         else: return new_data
 
 def create_for_first(data):
-    new_data = []
-    count = 0
-    while count < 4:
-        new_data.append(data[0])
+    new_date = re.search(r"\d{2}\-\d{2}\-\d{4}", data[0])
+    new_date=day(new_date[0])
+  #  print(new_date+timedelta(4))
+    return new_date+timedelta(4)
+
+def clean_data(data, last_day):
+    date = re.search(r"\d{2}\-\d{2}\-\d{4}", data[0])
+    date = day(date[0])
+    while date<last_day and len(data)>7:
         data.pop(0)
-        count+=1
-    return new_data
-
-def clean_data(data):
-    count = 0
-    if len(data)>=7:
-            while count!=7:
-                data.pop(0)
-                count+=1
-    else: 
-        while len(data)!=0:
-            data.pop(0)
-
-def chouse_day(data):
-    if len(data)>=7:
-        last_day= re.search(r"\d{1,2}", data[7])   
-    else: 
-        last_day= re.search(r"\d{1,2}", data[len(data)-1])
-    return last_day
-
+        date = re.search(r"\d{2}\-\d{2}\-\d{4}", data[0])
+        date = day(date[0])
 
 def main():
     data = []
     our_file = open("dataset.csv", "r")
     for param in our_file:
         data.append(param)
-    create(create_for_first(data))
-    last_day= re.search(r"\d{1,2}", data[7])
-    #print(last_day[0])
-    while len(data)!=1:
-        new_data = separation(data, last_day[0])
+    last_day=create_for_first(data)
+    while len(data)>7:
+        new_data = separation(data, last_day)
         create(new_data)
-        clean_data(data)
+        clean_data(data, last_day)
         last_day = chouse_day(data)
+    first = day(data[0])
+    last = day(data[len(data)-1])
+    creade_file(str(first), str(last), data)
+
 
 if __name__ == "__main__":
     main()
