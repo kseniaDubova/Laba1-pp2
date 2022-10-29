@@ -2,9 +2,10 @@ import datetime
 import os
 import re
 from datetime import timedelta
+from typing import List
 
 
-def day(this_day):
+def day(this_day:str) -> datetime:
     year = re.search(r"\d{4}", this_day)
     day = re.search(r"\b\d{2}", this_day)
     month = re.search(r"\-\d{2}\-", this_day)
@@ -12,13 +13,13 @@ def day(this_day):
     return datetime.date(int(year[0]), int(month), int(day[0]))
 
 
-def chouse_day(data):
+def chouse_day(data:List) -> datetime:
     new_date = re.search(r"\d{2}\-\d{2}\-\d{4}", data[0])
     new_date = day(new_date[0])
     return new_date + timedelta(7)
 
 
-def create_file(start, end, data):
+def create_file(start:str, end:str, data:List) -> None:
     end = end.replace("-", "")
     end = end.replace("\\", "")
     start = start.replace("\\", "")
@@ -30,14 +31,14 @@ def create_file(start, end, data):
     out_file.close
 
 
-def create(data):
+def create(data: List) -> None:
     start = re.search(r"\d{2}\-\d{2}\-\d{4}", data[0])
     end = chouse_day(start)
     start = day(start[0])
     create_file(str(start), str(end), data)
 
 
-def separation(data, last_day):
+def separation(data:List, last_day:datetime) -> None:
     new_data = []
     for row in data:
         new_date = re.search(r"\d{2}\-\d{2}\-\d{4}", row)
@@ -48,14 +49,14 @@ def separation(data, last_day):
             return new_data
 
 
-def create_for_first(data):
+def create_for_first(data: List) -> None:
     new_date = re.search(r"\d{2}\-\d{2}\-\d{4}", data[0])
     new_date = day(new_date[0])
     #  print(new_date+timedelta(4))
     return new_date + timedelta(4)
 
 
-def clean_data(data, last_day):
+def clean_data(data:List, last_day: datetime) -> None:
     date = re.search(r"\d{2}\-\d{2}\-\d{4}", data[0])
     date = day(date[0])
     while date < last_day and len(data) > 7:

@@ -1,8 +1,9 @@
 import re
 import os
+from typing import List
 
 
-def creade_file(start, end, data):
+def creade_file(start: int, end: int, data: List) -> None:
     name_of_file = os.path.join("2", str(start) + "_" + str(end) + ".csv")
     out_file = open(name_of_file, "w+")
     for param in data:
@@ -10,7 +11,7 @@ def creade_file(start, end, data):
     out_file.close
 
 
-def create(data):
+def create(data: List) -> None:
     start = re.search(r"\d.*\d{4}", data[0])
     start = start[0].replace("-", "")
     end = re.search(r"\d.*\d{4}", data[len(data) - 1])
@@ -18,7 +19,7 @@ def create(data):
     creade_file(start, end, data)
 
 
-def separation(data, year):
+def separation(data: List, year: int):
     new_data = []
     for row in data:
         a = re.search(r"\d{4}", row)

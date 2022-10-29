@@ -2,9 +2,12 @@ from datetime import date
 import datetime
 import re
 import os
+from threading import Thread
+from typing import List
 
 
-def search(file, date):
+
+def search(file: Thread, date: datetime) -> int:
     for row in file:
         new_date = re.search(r"\d{2}\-\d{2}\-\d{4}", row)
         year = re.search(r"\d{4}", new_date[0])
@@ -17,7 +20,7 @@ def search(file, date):
     return 1
 
 
-def search_in_all(date):
+def search_in_all(date: datetime) -> None:
     flag = 0
     file = open("dataset.csv", "r")
     flag = search(file, date)
@@ -26,7 +29,7 @@ def search_in_all(date):
         print(None)
 
 
-def search_in_year(date):
+def search_in_year(date: datetime) -> None:
     flag = 0
     for row in os.listdir("2"):
         file = open(os.path.join("2", row), "r")
@@ -38,7 +41,7 @@ def search_in_year(date):
         print(None)
 
 
-def search_in_week(date):
+def search_in_week(date: datetime) -> None:
     flag = 0
     for row in os.listdir("3"):
         file = open(os.path.join("3", row), "r")
@@ -50,7 +53,7 @@ def search_in_week(date):
         print(None)
 
 
-def date_in_str(str):
+def date_in_str(str: str) -> None:
     str = int(str)
     day = str % 100
     str = int(str / 100)
@@ -60,7 +63,7 @@ def date_in_str(str):
     return datetime.date(year, month, day)
 
 
-def search_in_week_fast(date):
+def search_in_week_fast(date: datetime) -> None:
     for row in os.listdir("3"):
         first_date = re.search(r"\d{8}", row)
         last_date = re.search(r"_\d{8}", row)
@@ -74,7 +77,7 @@ def search_in_week_fast(date):
     print(None)
 
 
-def search_in_week(date):
+def search_in_week(date: datetime) -> None:
     flag = 0
     for row in os.listdir("3"):
         file = open(os.path.join("3", row), "r")
@@ -86,7 +89,7 @@ def search_in_week(date):
         print(None)
 
 
-def searh_in_data_and_date(date):
+def searh_in_data_and_date(date: datetime) -> None:
     count = 0
     flag = 0
     file_date = open(os.path.join("1", "file_with_date.csv"), "r")
@@ -114,7 +117,7 @@ def searh_in_data_and_date(date):
     file_data.close
 
 
-def next(count):
+def next(count: int) -> int:
     file = open("dataset.csv", "r")
     data = []
     for row in file:
@@ -124,6 +127,3 @@ def next(count):
     count += 1
     return count
 
-
-# date = datetime.date(2012, 5, 5)
-# search_in_week_fast(date)
