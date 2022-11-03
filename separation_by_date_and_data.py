@@ -13,7 +13,7 @@ def separation(file: Thread)->None:
             for word in row:
                 data.append(word)
     out_file.close
-    return data
+    print_in_files(data)
 
 
 def print_in_files(main_list: List)->None:
@@ -36,8 +36,7 @@ def print_in_files(main_list: List)->None:
 
 
 def main():
-    data = separation("dataset.csv")
-    print_in_files(data)
+    separation("dataset.csv")
 
 
 if __name__ == "__main__":
