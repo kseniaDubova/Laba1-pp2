@@ -110,17 +110,18 @@ def search_in_data_and_date(date: datetime) -> str:
             flag = 1
             break
     file_date.close
-    if flag == 0:
-        result = 'None'
-        return result
-    file_data = open(os.path.join("1", "file_with_data.csv"), "r")
-    for row in file_data:
-        count -= 1
-        if count == 0:
-            result = str(row)
-            file_data.close
-            return result
-    file_data.close
+    if flag == 1:
+        file_data = open(os.path.join("1", "file_with_data.csv"), "r")
+        for row in file_data:
+            count -= 1
+            if count == 0:
+                result = str(row)
+                file_data.close
+                return result
+        file_data.close
+    result = 'None'
+    return result
+    
 
 
 def next(count: int) -> int:
@@ -134,5 +135,5 @@ def next(count: int) -> int:
     return count
 
 #date = datetime.date(2013,1,1)
-#print(search_in_data_and_date(date))
+##print(search_in_data_and_date(date))
 #print(type(search_in_year(date)))
