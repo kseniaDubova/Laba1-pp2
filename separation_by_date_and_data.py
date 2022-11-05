@@ -4,7 +4,7 @@ from threading import Thread
 from typing import List
 
 
-def separation(file: Thread)->None:
+def separation(file: Thread) -> None:
     data = []
     out_file = open(file, "r")
     with out_file as f:
@@ -16,7 +16,7 @@ def separation(file: Thread)->None:
     print_in_files(data)
 
 
-def print_in_files(main_list: List)->None:
+def print_in_files(main_list: List) -> None:
     file_of_date = open(os.path.join("1", "file_with_date.csv"), "w")
     file_of_over = open(os.path.join("1", "file_with_data.csv"), "w")
     count = 0
