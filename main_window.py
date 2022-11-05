@@ -16,6 +16,7 @@ class Window(QMainWindow):
         super(Window, self).__init__()
 
         self.setGeometry(300, 250, 1007, 925)
+        self.setFixedSize(1007, 925)
         self.setWindowTitle("Погода")
         self.background = QLabel(self)
         self.fire = QLabel(self)
