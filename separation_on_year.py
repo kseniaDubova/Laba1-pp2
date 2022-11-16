@@ -3,20 +3,20 @@ import os
 from typing import List
 
 
-def creade_file(start: int, end: int, data: List) -> None:
-    name_of_file = os.path.join("2", str(start) + "_" + str(end) + ".csv")
+def creade_file(start: int, end: int, data: List, folder: str) -> None:
+    name_of_file = os.path.join(folder, str(start) + "_" + str(end) + ".csv")
     out_file = open(name_of_file, "w+")
     for param in data:
         out_file.write(param)
     out_file.close
 
 
-def create(data: List) -> None:
+def create(data: List, folder: str) -> None:
     start = re.search(r"\d.*\d{4}", data[0])
     start = start[0].replace("-", "")
     end = re.search(r"\d.*\d{4}", data[len(data) - 1])
     end = end[0].replace("-", "")
-    creade_file(start, end, data)
+    creade_file(start, end, data, folder)
 
 
 def separation(data: List, year: int):
@@ -28,7 +28,7 @@ def separation(data: List, year: int):
     return new_data
 
 
-def main():
+def separetion_year(folder: str):
     data = []
     our_file = open("dataset.csv", "r")
     for param in our_file:
@@ -36,10 +36,10 @@ def main():
     year = 2008
     while year < 2023:
         new_data = separation(data, year)
-        create(new_data)
+        create(new_data, folder)
         # print(new_data)
         year += 1
 
 
 if __name__ == "__main__":
-    main()
+    separetion_year()
