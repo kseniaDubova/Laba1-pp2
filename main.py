@@ -39,7 +39,7 @@ def get_content(html):
 out_file = open("dataset.csv", 'w+')
 first_year = 2008
 first_month = 1
-out_file.write("Число,"+"Температура днем,"+ "Давление днем,"+"Ветер днем,"+"Температура ночью,"+ "Давление ночью,"+ "Ветер ночью"+'\n')
+out_file.write("Number,"+"Day temperature,"+ "Day pressure,"+"Day wind,"+"Night temperature,"+ "Night pressure,"+ "Night wind"+'\n')
 while first_year<=2022:
     while first_month<=12:
         if first_month == 10 and first_year == 2022:
@@ -58,7 +58,7 @@ while first_year<=2022:
             if first_month<10:
                 month = "0"+str(first_month)
             else: month = str(first_month)
-            out_file.write(day+'-'+month+'-'+str(first_year) +',')
+            out_file.write(str(first_year)+'-'+month+'-'+day +',')
             out_file.write(main_list[index+1]+","+ main_list[index+2]+","+ main_list[index+3]+","+ main_list[index+4]+","+main_list[index+5]+","+main_list[index+6]+'\n')
             index+=7
         first_month+=1

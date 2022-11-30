@@ -15,3 +15,29 @@
     except:
         df["Фарингейт (днем)"] = "данные отсутствуют"
         df["Фарингейт (ночью)"] = "данные отсутствуют"
+
+   df.fillna(
+        {
+            #"Day temperature,"+ "Day pressure,"+"Day wind,"+"Night temperature,"+ "Night pressure,"+ "Night wind"
+            "Day temperature": "no data",
+             "Day pressure": "no data",
+             "Day wind": "no data",
+             "Night temperature": "no data",
+             "Night pressure": "no data",
+             "Night wind": "no data",
+             "Fahrenheit (afternoon)": "no data",
+             "Fahrenheit (night)": "no data",
+        },
+        inplace=True,
+    )
+
+def grafics_date(df, month:int, year:int):
+    start = str(year)+str(month)+"01"
+    end = str(year)+str(month+1)+"01"
+    fig = plt.figure(figsize=(40, 5))
+    plt.ylabel("temp")
+    plt.xlabel("date")
+    plt.title("Temperature")
+    tmp_df = df.loc[(df["Number"] >= start) & (df["Number"] < end)]
+    plt.bar(tmp_df["Number"], tmp_df["Day temperature"], color="#5900A6")
+    plt.show()
